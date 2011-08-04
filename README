@@ -1,0 +1,4 @@
+Joomla Generators
+
+jcom will generate a Joomla Component based on Joomla MVC. 
+jbuild will create the install xml file and .sql file for versions of your component
