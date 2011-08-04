@@ -8,13 +8,14 @@ class JoomlaComponent
   
   attr_accessor :name, :template_path, :component_path, :comp_var
   attr_accessor :controller_path, :view_path,:default_view,:component_start,:template_component_start
+  attr_accessor :component_document_root
 
   
   def initialize(name)
     self.name = name
-    
+    self.component_document_root = 'builds'
     self.template_path = 'com_COM'
-    self.component_path = "com_#{name}"
+    self.component_path = File.join(component_document_root,"com_#{name}")
     self.comp_var = '{COM}'
     #TODO make default view chooser work
     self.default_view    = 'default'
@@ -28,6 +29,7 @@ class JoomlaComponent
   private
   
     def generate!
+      mkdir_p(component_document_root)
       cp_r(template_path,component_path)
       mv(template_component_start,component_start)
       file_replacements(component_start, comp_var => name.capitalize)
